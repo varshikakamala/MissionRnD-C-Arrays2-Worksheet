@@ -25,6 +25,89 @@ struct transaction * mergeSortedArrays(struct transaction *A, int ALen, struct t
 if(A==NULL || B==NULL)	return NULL;
 else
 {
-
+	struct transaction *Answer;
+	int ALen = 3, BLen = 3;
+	Answer = (struct transaction *)malloc((ALen + BLen)*sizeof(struct transaction));
+	int i = 0, j = 0, k = 0, m = 0;
+	while (i < ALen && j < BLen)
+	{
+		if (A[i].amount < B[j].amount)
+		{
+			Answer[k].amount = A[i].amount;
+			while (A[i].date[m] != '\0')
+			{
+				Answer[k].date[m] = A[i].date[m];
+				m++;
+			}
+			m = 0;
+			while (A[i].description[m] != '\0')
+			{
+				Answer[k].description[m] = A[i].description[m];
+				m++;
+			}
+			i++;
+		}
+		else
+		{
+			Answer[k].amount = B[j].amount;
+			while (A[j].date[m] != '\0')
+			{
+				Answer[k].date[m] = B[j].date[m];
+				m++;
+			}
+			m = 0;
+			while (A[j].description[m] != '\0')
+			{
+				Answer[k].description[m] = B[j].description[m];
+				m++;
+			}
+			j++;
+		}
+		k++;
+	}
+	if (i >= ALen)
+	{
+		m = 0;
+		while (j < BLen)
+		{
+			Answer[k].amount = B[j].amount;
+			while (A[j].date[m] != '\0')
+			{
+				Answer[k].date[m] = B[j].date[m];
+				m++;
+			}
+			m = 0;
+			while (A[j].description[m] != '\0')
+			{
+				Answer[k].description[m] = B[j].description[m];
+				m++;
+			}
+			j++;
+			k++;
+		}
+	}
+	if (j >= BLen)
+	{
+		m = 0;
+		while (i < ALen)
+		{
+			Answer[k].amount = A[i].amount;
+			while (A[i].date[m] != '\0')
+			{
+				Answer[k].date[m] = A[i].date[m];
+				m++;
+			}
+			m = 0;
+			while (A[i].description[m] != '\0')
+			{
+				Answer[k].description[m] = A[i].description[m];
+				m++;
+			}
+			i++;
+			k++;
+		}
+	}
+	return Answer;
 }
+
 }
